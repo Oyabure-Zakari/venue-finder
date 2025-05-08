@@ -34,7 +34,7 @@ function UserLocation() {
       }
     );
 
-    // Cleanup: Stop watching position on component unmount
+    // stop watching position on component unmount
     return () => navigator.geolocation.clearWatch(watchId);
   }, []);
 
