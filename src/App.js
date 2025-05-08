@@ -1,8 +1,7 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import L from "leaflet";
-import { useEffect, useState } from "react";
 
 // Define custom icon
 const customIcon = new L.Icon({
@@ -14,7 +13,7 @@ const customIcon = new L.Icon({
   shadowSize: [41, 41], // Size of the shadow
 });
 
-const position = [51.505, -0.09];
+const position = [11.0667, 7.7];
 
 function App() {
   return (
