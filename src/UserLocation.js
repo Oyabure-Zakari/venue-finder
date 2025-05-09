@@ -31,6 +31,11 @@ function UserLocation() {
       },
       (err) => {
         setError(err.message);
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 30000,
+        timeout: 27000,
       }
     );
 
@@ -38,11 +43,12 @@ function UserLocation() {
     return () => navigator.geolocation.clearWatch(watchId);
   }, []);
 
-  // render nothing if position is not yet available or there's an error
+  // render nothing if there's an error
   if (error) {
     return <div>Error: {error}</div>;
   }
 
+  // render nothing if position is not yet available
   if (!position) {
     return null;
   }
