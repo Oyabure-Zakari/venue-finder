@@ -1,6 +1,6 @@
 import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
-import { useState, useEffect } from "react";
+import { useGeolocationStore } from "./store/useGeolocationStore";
 
 // Define custom icon
 const customIcon = new L.Icon({
@@ -13,35 +13,8 @@ const customIcon = new L.Icon({
 });
 
 function UserLocation() {
-  const [error, setError] = useState(null);
-  const [position, setPosition] = useState(null); // store [lat, lng]
-
-  useEffect(() => {
-    // check if geolocation is supported
-    if (!navigator.geolocation) {
-      setError("Geolocation is not supported by your browser");
-      return;
-    }
-
-    // watch for position updates (if user is moving)
-    const watchId = navigator.geolocation.watchPosition(
-      (pos) => {
-        const { latitude, longitude } = pos.coords;
-        setPosition([latitude, longitude]);
-      },
-      (err) => {
-        setError(err.message);
-      },
-      {
-        enableHighAccuracy: true,
-        maximumAge: 30000,
-        timeout: 27000,
-      }
-    );
-
-    // stop watching position on component unmount
-    return () => navigator.geolocation.clearWatch(watchId);
-  }, []);
+  const error = useGeolocationStore((state) => state.error);
+  const position = useGeolocationStore((state) => state.position);
 
   // render nothing if there's an error
   if (error) {
