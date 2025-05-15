@@ -3,11 +3,34 @@ import "leaflet/dist/leaflet.css";
 import "./Map.css";
 
 import UserLocation from "./UserLocation";
+import { useGeolocationStore } from "./store/useGeolocationStore";
+import { useEffect } from "react";
 
 function MapUI() {
+  const error = useGeolocationStore((state) => state.error);
+  const position = useGeolocationStore((state) => state.position);
+  const initializeGeolocation = useGeolocationStore(
+    (state) => state.initializeGeolocation
+  );
+
+  useEffect(() => {
+    const cleanUp = initializeGeolocation();
+    return cleanUp;
+  }, [initializeGeolocation]);
+
+  // render nothing if there's an error
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  // render nothing if position is not yet available
+  if (!position) {
+    return null;
+  }
+
   return (
     <MapContainer
-      center={[11.0667, 7.7]}
+      center={position}
       zoom={13}
       scrollWheelZoom={false}
       className="map-container"
