@@ -1,10 +1,16 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+
 import "./Map.css";
 
-import UserLocation from "./UserLocation";
-import { useGeolocationStore } from "./store/useGeolocationStore";
 import { useEffect } from "react";
+
+import { coordinates } from "./coordinates";
+
+import UserLocation from "./UserLocation";
+import Destination from "./Destination";
+import Routing from "./Routing";
+import { useGeolocationStore } from "./store/useGeolocationStore";
 
 function MapUI() {
   const error = useGeolocationStore((state) => state.error);
@@ -31,7 +37,7 @@ function MapUI() {
   return (
     <MapContainer
       center={position}
-      zoom={13}
+      zoom={10}
       scrollWheelZoom={false}
       className="map-container"
     >
@@ -40,6 +46,8 @@ function MapUI() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <UserLocation />
+      <Destination coordinates={coordinates} />
+      <Routing coordinates={coordinates} />
     </MapContainer>
   );
 }
