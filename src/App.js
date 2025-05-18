@@ -1,7 +1,7 @@
-import MapUI from "./MapUI";
+import MapPage from "../src/pages/MapPage";
 
 function App() {
-  return <MapUI />;
+  return <MapPage />;
 }
 
 export default App;
