@@ -1,4 +1,4 @@
-import MapUI from "./MapUI";
+import MapUI from "../src/pages/MapUI";
 
 function App() {
   return <MapUI />;
